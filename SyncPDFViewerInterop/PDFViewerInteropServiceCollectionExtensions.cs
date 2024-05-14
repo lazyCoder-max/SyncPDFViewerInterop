@@ -4,7 +4,7 @@ namespace SyncPDFViewerInterop
 {
     public static class PDFViewerInteropServiceCollectionExtensions
     {
-        public static IServiceCollection AddWalletConnectModalComponents(this IServiceCollection services)
+        public static IServiceCollection AddPDFViewerService(this IServiceCollection services)
         {
             services.AddScoped<IPDFViewerInterop, PDFViewerInterop>();
 
