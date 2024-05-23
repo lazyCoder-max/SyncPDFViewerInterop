@@ -1,3 +1,4 @@
+using MudBlazor.Services;
 using SyncPDFViewerInterop;
 using SyncPDFViewerInterop.Sample.Components;
 
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddPDFViewerService();
+builder.Services.AddMudServices();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

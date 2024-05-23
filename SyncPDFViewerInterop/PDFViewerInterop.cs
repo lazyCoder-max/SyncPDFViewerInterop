@@ -34,6 +34,73 @@ namespace SyncPDFViewerInterop
                 await module.InvokeVoidAsync("loadPDF", sourceUrl);
             }
         }
+        public async Task AddSignatureField()
+        {
+            try
+            {
+                if (_configured)
+                {
+                    var module = await _moduleTask.Value;
+                    await SetFormFieldMode(true);
+                    await module.InvokeVoidAsync("addSignatureField", null);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+        public async Task AddInitialField()
+        {
+            try
+            {
+                if (_configured)
+                {
+                    var module = await _moduleTask.Value;
+                    await SetFormFieldMode(true);
+                    await module.InvokeVoidAsync("addInitialField", null);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+        public async Task AddTextBoxField()
+        {
+            try
+            {
+                if (_configured)
+                {
+                    var module = await _moduleTask.Value;
+                    await SetFormFieldMode(true);
+                    await module.InvokeVoidAsync("addTextBoxField", null);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+        public async Task SetFormFieldMode(bool isEditMode)
+        {
+            try
+            {
+                if (_configured)
+                {
+                    var module = await _moduleTask.Value;
+                    await module.InvokeVoidAsync("setFormFieldMode", isEditMode);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
         public async ValueTask DisposeAsync()
         {
             if (_moduleTask.IsValueCreated)
