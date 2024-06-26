@@ -30,11 +30,33 @@ Welcome to your new app.
     private bool checkBoxValue = false;
     private string DisplayNme = "Edit Mode Disabled";
     [Inject] private IPDFViewerInterop pdfViewer { get; set; }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if(firstRender)
+        {
+            await pdfViewer.Configure();
+        }
+    }
     protected async Task HandleClick()
     {
-        await pdfViewer.Configure();
-        await pdfViewer.LoadPDF("https://cdn.syncfusion.com/content/pdf/pdf-succinctly.pdf");
+
+        //await pdfViewer.LoadPDF("https://cdn.syncfusion.com/content/pdf/pdf-succinctly.pdf");
+        string url = "https://cdn.syncfusion.com/content/pdf/pdf-succinctly.pdf";
+        var pdfStream = await ConvertUrlToMemoryStreamAsync(url);
+        await pdfViewer.LoadPDF(pdfStream, "application/pdf");
         StateHasChanged();
+    }
+    private async Task<byte[]> ConvertUrlToMemoryStreamAsync(string url)
+    {
+        using (HttpClient client = new HttpClient())
+        {
+            // Download the PDF file as a byte array
+            byte[] fileBytes = await client.GetByteArrayAsync(url);
+
+
+            return fileBytes;
+        }
     }
     protected async Task HandleSignatureFieldClick()
     {

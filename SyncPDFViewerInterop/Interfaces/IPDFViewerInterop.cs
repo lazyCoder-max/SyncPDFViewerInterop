@@ -18,6 +18,13 @@
         Task LoadPDF(string sourceUrl);
 
         /// <summary>
+        /// Programatically load a PDF Document into the PDFViewer component
+        /// </summary>
+        /// <param name="fileBytes"></param>
+        /// <param name="documentType"></param> <example>documentType="application/pdf"</example>
+        /// <returns></returns>
+        Task LoadPDF(byte[] fileBytes, string documentType);
+        /// <summary>
         /// Add Signature Field Form for the PDF Viewer
         /// </summary>
         /// <returns></returns>

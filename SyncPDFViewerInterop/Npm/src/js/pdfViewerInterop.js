@@ -54,6 +54,21 @@ export async function loadPDF(sourceUrl) {
         console.log(e.message);
     }
 }
+export async function loadStream(base64String,documentType) {
+    try {
+        const element = document.getElementById('pdfViewer');
+        if (!element) {
+            console.error('pdfViewer element not found');
+            return;
+        }
+        pdfviewer.resourceUrl = 'https://cdn.syncfusion.com/ej2/25.2.3/dist/ej2-pdfviewer-lib';
+        pdfviewer.documentPath = 'data:' + documentType +';base64,' + base64String;
+        pdfviewer.dataBind();
+        pdfviewer.appendTo(element);
+    } catch (e) {
+        console.log(e.message);
+    }
+}
 export async function addSignatureField() {
     try {
         if (pdfviewer != null) {

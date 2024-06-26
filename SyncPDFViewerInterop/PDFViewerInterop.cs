@@ -34,6 +34,15 @@ namespace SyncPDFViewerInterop
                 await module.InvokeVoidAsync("loadPDF", sourceUrl);
             }
         }
+        public async Task LoadPDF(byte[] fileBytes,string documentType)
+        {
+            if (_configured)
+            {
+                var module = await _moduleTask.Value;
+                var stream =  Convert.ToBase64String(fileBytes);
+                await module.InvokeVoidAsync("loadStream", stream, documentType);
+            }
+        }
         public async Task AddSignatureField()
         {
             try
