@@ -20,6 +20,21 @@ Welcome to your new app.
 <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="HandleTextBoxFieldClick">
     Add Text Box Field
 </MudButton>
+<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="HandleCheckBoxFieldClick">
+    Add CheckBox Field
+</MudButton>
+<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="HandleAddRadioBoxFieldClick">
+    Add RadioBox Field
+</MudButton>
+<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="HandleAddDropdownFieldClick">
+    Add Dropdown Field
+</MudButton>
+<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="HandleAddListBoxFieldClick">
+    Add Listbox Field
+</MudButton>
+<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="HandleUpdateFieldClick">
+    Update Field
+</MudButton>
 <MudCheckBox T="bool" Value="checkBoxValue" Label="@DisplayNme" ValueChanged="HandleCheckBoxChanged" />
 <PDFViewer >
 
@@ -44,7 +59,7 @@ Welcome to your new app.
         //await pdfViewer.LoadPDF("https://cdn.syncfusion.com/content/pdf/pdf-succinctly.pdf");
         string url = "https://cdn.syncfusion.com/content/pdf/pdf-succinctly.pdf";
         var pdfStream = await ConvertUrlToMemoryStreamAsync(url);
-        await pdfViewer.LoadPDF(pdfStream, "application/pdf");
+        await pdfViewer.LoadPDF(pdfStream, "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
         StateHasChanged();
     }
     private async Task<byte[]> ConvertUrlToMemoryStreamAsync(string url)
@@ -84,6 +99,30 @@ Welcome to your new app.
     protected async Task HandleTextBoxFieldClick()
     {
         await pdfViewer.AddTextBoxField();
+        StateHasChanged();
+    }
+    protected async Task HandleUpdateFieldClick()
+    {
+        StateHasChanged();
+    }
+    protected async Task HandleCheckBoxFieldClick()
+    {
+        await pdfViewer.AddCheckBoxField();
+        StateHasChanged();
+    }
+    protected async Task HandleAddRadioBoxFieldClick()
+    {
+        await pdfViewer.AddRadioBoxField();
+        StateHasChanged();
+    }
+    protected async Task HandleAddListBoxFieldClick()
+    {
+        await pdfViewer.AddListBoxField();
+        StateHasChanged();
+    }
+    protected async Task HandleAddDropdownFieldClick()
+    {
+        await pdfViewer.AddDropdownField();
         StateHasChanged();
     }
 }

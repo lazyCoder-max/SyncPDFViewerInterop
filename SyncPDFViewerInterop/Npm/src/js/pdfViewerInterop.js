@@ -31,8 +31,11 @@ export async function configure(dotNetInterop) {
     try {
         PdfViewer.Inject(Toolbar, Magnification, Navigation, Annotation, LinkAnnotation, ThumbnailView,
             BookmarkView, TextSelection, TextSearch, FormFields, FormDesigner, PageOrganizer);
-
-        pdfviewer = new PdfViewer();
+        pdfviewer = new PdfViewer({
+            formFieldAdd: function (args) {
+                dotNetInterop.invokeMethodAsync('OnFormFieldAdded', args);
+            }
+        });
         configured = true;
     } catch (e) {
         console.log(e.message);
@@ -73,10 +76,10 @@ export async function addSignatureField() {
     try {
         if (pdfviewer != null) {
             const signatureFormElement = document.getElementById('pdfViewer_formfield_signature');
-            const signatureDialog = document.getElementById('pdfViewer_formfield_signature-popup');
+            
             if (signatureFormElement != null) {
                 signatureFormElement.click();
-                
+                const signatureDialog = document.getElementById('pdfViewer_formfield_signature-popup');
                 if (signatureDialog != null) {
                     const signatureDrawButton = signatureDialog.firstElementChild.firstElementChild.firstElementChild;
                     if (signatureDrawButton != null) {
@@ -94,10 +97,10 @@ export async function addInitialField() {
     try {
         if (pdfviewer != null) {
             const initialFormElement = document.getElementById('pdfViewer_formfield_signature');
-            const initialDialog = document.getElementById('pdfViewer_formfield_signature-popup');
+            
             if (initialFormElement != null) {
                 initialFormElement.click();
-
+                const initialDialog = document.getElementById('pdfViewer_formfield_signature-popup');
                 if (initialDialog != null) {
                     const initialDrawButton = initialDialog.lastElementChild.lastElementChild.firstElementChild;
                     if (initialDrawButton != null) {
@@ -124,17 +127,69 @@ export async function addTextBoxField() {
         console.error(e.message);
     }
 }
+export async function addCheckBoxField() {
+    try {
+        if (pdfviewer != null) {
+            const checkbox = document.getElementById('pdfViewer_formdesigner_checkbox');
+            if (checkbox != null) {
+                checkbox.click();
+            }
+        }
+
+    } catch (e) {
+        console.error(e.message);
+    }
+}
+export async function addRadioBoxField() {
+    try {
+        if (pdfviewer != null) {
+            const radiobox = document.getElementById('pdfViewer_formdesigner_radiobutton');
+            if (radiobox != null) {
+                radiobox.click();
+            }
+        }
+
+    } catch (e) {
+        console.error(e.message);
+    }
+}
+export async function addDropdownField() {
+    try {
+        if (pdfviewer != null) {
+            const dropdown = document.getElementById('pdfViewer_formdesigner_dropdown');
+            if (dropdown != null) {
+                dropdown.click();
+            }
+        }
+
+    } catch (e) {
+        console.error(e.message);
+    }
+}
+export async function addListboxField() {
+    try {
+        if (pdfviewer != null) {
+            const listbox = document.getElementById('pdfViewer_formdesigner_listbox');
+            if (listbox != null) {
+                listbox.click();
+            }
+        }
+
+    } catch (e) {
+        console.error(e.message);
+    }
+}
 export async function setFormFieldMode(mode) {
     try {
         if (pdfviewer != null) {
             const addEditFormFieldButton = document.getElementById('pdfViewer_formdesigner');
             if (addEditFormFieldButton != null) {
-                if (mode) {
+                if (isDesignerMode == false && mode == true) {
                     pdfviewer.enableFormDesigner = true;
                     isDesignerMode = true;
                     addEditFormFieldButton.click();
                 }
-                else {
+                else if (isDesignerMode == true && mode == false) {
                     addEditFormFieldButton.click();
                     isDesignerMode = false;
                 }
@@ -144,6 +199,25 @@ export async function setFormFieldMode(mode) {
     } catch (e) {
 
     }
+}
+export async function updateField(id, _name, _isReadOnly, _visibility, _isRequired, _isPrint, _tooltip) {
+    try {
+        if (pdfviewer != null) {
+            var formField = pdfviewer.getFormFieldByID(id);
+            pdfviewer.formDesignerModule.updateFormField(formField, {
+                name: _name,
+                isReadOnly: _isReadOnly,
+                visibility: _visibility,
+                isRequired: _isRequired,
+                isPrint: _isPrint,
+                tooltip: _tooltip,
+                thickness: 1
+            });
+        }
+    } catch (e) {
+
+    }
+    
 }
 document.addEventListener('DOMContentLoaded', (event) => {
     configure().then(() => {
