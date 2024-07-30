@@ -12,12 +12,12 @@
 		<Copyright>Copyright 2024 (c) Kidus. All rights reserved.</Copyright>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<OutputType>Library</OutputType>
+		<Version>1.0.3</Version>
 	</PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Extensions\" />
     <Folder Include="Enumes\" />
-    <Folder Include="Models\" />
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
 	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
